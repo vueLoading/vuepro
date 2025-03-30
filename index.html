@@ -13,14 +13,18 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
+            /*background-color: #f4f4f9;*/
+            background-color: #fff;
         }
 
         .container {
             background-color: #fff;
+            position:absolute;
+            top: 60px;
+            left: 0;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
             text-align: center;
         }
 
@@ -29,7 +33,7 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         input {
@@ -57,7 +61,7 @@
         }
 
         #generatedCode {
-            border: 1px solid #ccc;
+            border: 1px solid blue;
             padding: 10px;
             border-radius: 4px;
             cursor: pointer;
@@ -72,81 +76,85 @@
         #wechatQrCode {
             margin-top: 20px;
         }
+        .title{
+            font-size: 18px;
+            color: #666;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>请输入验证码</h2>
-        <div class="input-group">
-            <input type="text" id="verificationCode" placeholder="输入验证码">
-            <p id="generatedCode"></p>
-        </div>
-        <button onclick="verifyCode()">确认</button>
-        <!-- <div id="wechatQrCode"></div> -->
+<div class="container">
+    <div class="title">请输入验证码</div>
+    <div class="input-group">
+        <input type="text" id="verificationCode" placeholder="验证码">
+        <p id="generatedCode"></p>
     </div>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script> -->
-    <script>
-        const fonts = ['Arial', 'Verdana', 'Tahoma', 'Trebuchet MS', 'Georgia', 'Times New Roman', 'Courier New', 'Brush Script MT'];
+    <button onclick="verifyCode()">确认</button>
+    <!-- <div id="wechatQrCode"></div> -->
+</div>
+<!-- <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script> -->
+<script>
+    const fonts = ['Arial', 'Verdana', 'Tahoma', 'Trebuchet MS', 'Georgia', 'Times New Roman', 'Courier New', 'Brush Script MT'];
 
-        // 生成随机颜色
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
+    // 生成随机颜色
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
         }
+        return color;
+    }
 
-        // 生成仅包含英文字母的随机验证码
-        function generateCode() {
-            const length = 4;
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-            let code = '';
-            for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * characters.length);
-                code += characters.charAt(randomIndex);
-            }
-            return code;
+    // 生成仅包含英文字母的随机验证码
+    function generateCode() {
+        const length = 4;
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let code = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            code += characters.charAt(randomIndex);
         }
+        return code;
+    }
 
-        let correctCode = generateCode();
-        const codeElement = document.getElementById('generatedCode');
+    let correctCode = generateCode();
+    const codeElement = document.getElementById('generatedCode');
 
-        function updateCode() {
-            correctCode = generateCode();
-            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-            const randomColor = getRandomColor();
-            codeElement.textContent = correctCode;
-            codeElement.style.fontFamily = randomFont;
-            codeElement.style.color = randomColor;
+    function updateCode() {
+        correctCode = generateCode();
+        const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        const randomColor = getRandomColor();
+        codeElement.textContent = correctCode;
+        codeElement.style.fontFamily = randomFont;
+        codeElement.style.color = randomColor;
+    }
+
+    updateCode();
+
+    codeElement.addEventListener('click', updateCode);
+
+    function verifyCode() {
+        const inputCode = document.getElementById('verificationCode').value;
+        if (inputCode === correctCode) {
+            // 验证成功，跳转到证书详情页面
+            window.location.href = 'certificate.html';
+        } else {
+            alert('验证码错误，请重新输入');
         }
+    }
 
-        updateCode();
-
-        codeElement.addEventListener('click', updateCode);
-
-        function verifyCode() {
-            const inputCode = document.getElementById('verificationCode').value;
-            if (inputCode === correctCode) {
-                // 验证成功，跳转到证书详情页面
-                window.location.href = 'certificate.html';
-            } else {
-                alert('验证码错误，请重新输入');
-            }
-        }
-
-        // 生成微信二维码
-        // const url = window.location.href;
-        // const typeNumber = 4;
-        // const errorCorrectionLevel = 'L';
-        // const qr = qrcode(typeNumber, errorCorrectionLevel);
-        // qr.addData(url);
-        // qr.make();
-        // const qrDiv = document.getElementById('wechatQrCode');
-        // qrDiv.innerHTML = qr.createImgTag();
-    </script>
+    // 生成微信二维码
+    // const url = window.location.href;
+    // const typeNumber = 4;
+    // const errorCorrectionLevel = 'L';
+    // const qr = qrcode(typeNumber, errorCorrectionLevel);
+    // qr.addData(url);
+    // qr.make();
+    // const qrDiv = document.getElementById('wechatQrCode');
+    // qrDiv.innerHTML = qr.createImgTag();
+</script>
 </body>
 
 </html>    
