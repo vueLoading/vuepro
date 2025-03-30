@@ -14,17 +14,19 @@
             margin: 0;
         }
         .table-container {
-            transform: scale(0.5); /* 缩小50% */
+            transform: scale(0.4); /* 缩小50% */
             transform-origin: top center; /* 缩放原点 */
         }
         table {
             background: white;
             border: 1px solid #ccc;
-            border-collapse: collapse;
-            /*width: 60%;*/
+            width: 500px;
             height: 30%;
             table-layout: fixed;
             margin-top: 10px; /* 距离顶部10px */
+        }
+        tr{
+            padding: 0 2px;
         }
         td {
             border: 1px solid #ccc;
@@ -32,14 +34,17 @@
             margin: 2px;
             overflow: hidden;
             text-overflow: ellipsis;
+            height: 30px;
         }
         td:first-child {
             text-align: right;
-            width: 40%;
+            padding-right: 14px;
+            width: 46%;
         }
         td:last-child {
             text-align: left;
-            width: 60%;
+            padding-left: 14px;
+            width: 54%;
         }
         img {
             max-width: 100%;
