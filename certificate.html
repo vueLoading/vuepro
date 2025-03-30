@@ -13,11 +13,15 @@
             min-height: 100vh;
             margin: 0;
         }
+        .table-container {
+            transform: scale(0.5); /* 缩小50% */
+            transform-origin: top center; /* 缩放原点 */
+        }
         table {
             background: white;
             border: 1px solid #ccc;
             border-collapse: collapse;
-            width: 60%;
+            /*width: 60%;*/
             height: 30%;
             table-layout: fixed;
             margin-top: 10px; /* 距离顶部10px */
@@ -44,60 +48,62 @@
     </style>
 </head>
 <body>
-<table>
-    <tr>
-        <td>照片:</td>
-        <td><img id="photo" src="" alt="证书照片"></td>
-    </tr>
-    <tr>
-        <td>姓名:</td>
-        <td id="name">11</td>
-    </tr>
-    <tr>
-        <td>性别:</td>
-        <td id="gender">11</td>
-    </tr>
-    <tr>
-        <td>出生日期:</td>
-        <td id="birthDate"></td>
-    </tr>
-    <tr>
-        <td>证书编号:</td>
-        <td id="certificateNumber"></td>
-    </tr>
-    <tr>
-        <td>身份证号:</td>
-        <td id="idNumber"></td>
-    </tr>
-    <tr>
-        <td>职业(工种)及等级:</td>
-        <td id="occupation"></td>
-    </tr>
-    <tr>
-        <td>理论知识考试成绩:</td>
-        <td id="theoryScore"></td>
-    </tr>
-    <tr>
-        <td>操作技能考核成绩:</td>
-        <td id="practicalScore"></td>
-    </tr>
-    <tr>
-        <td>评定成绩:</td>
-        <td id="evaluation"></td>
-    </tr>
-    <tr>
-        <td>颁证日期:</td>
-        <td id="issueDate"></td>
-    </tr>
-    <tr>
-        <td>发证单位:</td>
-        <td id="issuingUnit"></td>
-    </tr>
-    <tr>
-        <td>证书流水码所属号段:</td>
-        <td id="serialNumberRange"></td>
-    </tr>
-</table>
+<div class="table-container">
+    <table>
+        <tr>
+            <td>照片:</td>
+            <td><img id="photo" src="" alt="证书照片"></td>
+        </tr>
+        <tr>
+            <td>姓名:</td>
+            <td id="name">11</td>
+        </tr>
+        <tr>
+            <td>性别:</td>
+            <td id="gender">11</td>
+        </tr>
+        <tr>
+            <td>出生日期:</td>
+            <td id="birthDate"></td>
+        </tr>
+        <tr>
+            <td>证书编号:</td>
+            <td id="certificateNumber"></td>
+        </tr>
+        <tr>
+            <td>身份证号:</td>
+            <td id="idNumber"></td>
+        </tr>
+        <tr>
+            <td>职业(工种)及等级:</td>
+            <td id="occupation"></td>
+        </tr>
+        <tr>
+            <td>理论知识考试成绩:</td>
+            <td id="theoryScore"></td>
+        </tr>
+        <tr>
+            <td>操作技能考核成绩:</td>
+            <td id="practicalScore"></td>
+        </tr>
+        <tr>
+            <td>评定成绩:</td>
+            <td id="evaluation"></td>
+        </tr>
+        <tr>
+            <td>颁证日期:</td>
+            <td id="issueDate"></td>
+        </tr>
+        <tr>
+            <td>发证单位:</td>
+            <td id="issuingUnit"></td>
+        </tr>
+        <tr>
+            <td>证书流水码所属号段:</td>
+            <td id="serialNumberRange"></td>
+        </tr>
+    </table>
+</div>
 
 <script>
     // 模拟数据数组
@@ -138,7 +144,6 @@
 
     // 获取URL参数
     const urlParams = new URLSearchParams(window.location.search);
-    // const targetUsername = urlParams.get('username');
     const targetUsername = '王杰';//先默认为王杰
     // 匹配数据
     const targetData = certificateData.find(item => item.username === targetUsername);
