@@ -149,7 +149,8 @@
 
     // 获取URL参数
     const urlParams = new URLSearchParams(window.location.search);
-    const targetUsername = '王杰';//先默认为王杰
+    // const targetUsername = '王杰';//先默认为王杰
+    const targetUsername = urlParams.get('username') ? urlParams.get('username')  :'王杰';
     // 匹配数据
     const targetData = certificateData.find(item => item.username === targetUsername);
 
