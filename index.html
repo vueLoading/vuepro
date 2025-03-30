@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +7,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            /*background-color: #f4f4f9;*/
+            min-height: 100vh;
             background-color: #fff;
         }
 
         .container {
             background-color: #fff;
-            position:absolute;
+            position: fixed;
             top: 60px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 20px;
             border-radius: 8px;
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
             text-align: center;
+            width: 90%;
+            max-width: 400px;
         }
 
         .input-group {
@@ -51,7 +48,7 @@
             background-color: #007BFF;
             color: #fff;
             border: none;
-            font-size:20px;
+            font-size: 20px;
             border-radius: 25px;
             cursor: pointer;
         }
@@ -73,12 +70,10 @@
             align-items: center;
         }
 
-        #wechatQrCode {
-            margin-top: 20px;
-        }
-        .title{
+        .title {
             font-size: 18px;
             color: #666;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -91,13 +86,11 @@
         <p id="generatedCode"></p>
     </div>
     <button onclick="verifyCode()">确认</button>
-    <!-- <div id="wechatQrCode"></div> -->
 </div>
-<!-- <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script> -->
+
 <script>
     const fonts = ['Arial', 'Verdana', 'Tahoma', 'Trebuchet MS', 'Georgia', 'Times New Roman', 'Courier New', 'Brush Script MT'];
 
-    // 生成随机颜色
     function getRandomColor() {
         const letters = '0123456789ABCDEF';
         let color = '#';
@@ -107,7 +100,6 @@
         return color;
     }
 
-    // 生成仅包含英文字母的随机验证码
     function generateCode() {
         const length = 4;
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -132,29 +124,16 @@
     }
 
     updateCode();
-
     codeElement.addEventListener('click', updateCode);
 
     function verifyCode() {
         const inputCode = document.getElementById('verificationCode').value;
         if (inputCode === correctCode) {
-            // 验证成功，跳转到证书详情页面
             window.location.href = 'certificate.html';
         } else {
             alert('验证码错误，请重新输入');
         }
     }
-
-    // 生成微信二维码
-    // const url = window.location.href;
-    // const typeNumber = 4;
-    // const errorCorrectionLevel = 'L';
-    // const qr = qrcode(typeNumber, errorCorrectionLevel);
-    // qr.addData(url);
-    // qr.make();
-    // const qrDiv = document.getElementById('wechatQrCode');
-    // qrDiv.innerHTML = qr.createImgTag();
 </script>
 </body>
-
-</html>    
+</html>
