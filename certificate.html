@@ -1,114 +1,164 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>证书详情</title>
+    <title>证书信息</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #e6f7ff; /* 浅蓝背景 */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            background-color: #e0f7fa; /* 浅蓝背景 */
         }
-
-        .certificate {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-        }
-
         table {
-            width: 100%;
-            /*border-collapse: collapse;*/
-            border: 2px solid #ccc;
-            background-color: white;
-            padding: 1px; /* 表格内边距 */
-        }
-
-        td {
-            padding: 8px;
-            border: 2px solid #ccc;
-            margin: 1px; /* 单元格外边距 */
-        }
-
-        td:nth-child(1) {
-            width: 40%;
-            text-align: right;
-        }
-
-        td:nth-child(2) {
+            background: white;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
             width: 60%;
+            height: 30%;
+            table-layout: fixed;
+            margin-top: 10px; /* 距离顶部10px */
+        }
+        td {
+            border: 1px solid #ccc;
+            padding: 2px;
+            margin: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        td:first-child {
+            text-align: right;
+            width: 40%;
+        }
+        td:last-child {
             text-align: left;
+            width: 60%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
-
 <body>
-    <div class="certificate">
-        <!--<h2>证书详情</h2>-->
-        <table>
-            <tr>
-                <td>照片:</td>
-                <td><img src="王杰.jpg" alt="证书照片"></td>
-            </tr>
-            <tr>
-                <td>姓名:</td>
-                <td>王杰</td>
-            </tr>
-            <tr>
-                <td>性别:</td>
-                <td>男</td>
-            </tr>
-            <tr>
-                <td>出生日期:</td>
-                <td>1964年05月 05日</td>
-            </tr>
-            <tr>
-                <td>证书编号:</td>
-                <td>203600302740411006</td>
-            </tr>
-            <tr>
-                <td>身份证号:</td>
-                <td>40103196405054238</td>
-            </tr>
-            <tr>
-                <td>职业(工种)及等级:</td>
-                <td>消防设施操作员</td>
-            </tr>
-            <tr>
-                <td>理论知识考试成绩:</td>
-                <td>66.0</td>
-            </tr>
-            <tr>
-                <td>操作技能考核成绩:</td>
-                <td>71.0</td>
-            </tr>
-            <tr>
-                <td>评定成绩:</td>
-                <td>合格</td>
-            </tr>
-            <tr>
-                <td>颁证日期:</td>
-                <td>2020-08-05</td>
-            </tr>
-            <tr>
-                <td>发证单位:</td>
-                <td>消防职业技能鉴定指导中心</td>
-            </tr>
-            <tr>
-                <td>证书流水码所属号段:</td>
-                <td>NQ47678545</td>
-            </tr>
-        </table>
-    </div>
-</body>
+<table>
+    <tr>
+        <td>照片:</td>
+        <td><img id="photo" src="" alt="证书照片"></td>
+    </tr>
+    <tr>
+        <td>姓名:</td>
+        <td id="name">11</td>
+    </tr>
+    <tr>
+        <td>性别:</td>
+        <td id="gender">11</td>
+    </tr>
+    <tr>
+        <td>出生日期:</td>
+        <td id="birthDate"></td>
+    </tr>
+    <tr>
+        <td>证书编号:</td>
+        <td id="certificateNumber"></td>
+    </tr>
+    <tr>
+        <td>身份证号:</td>
+        <td id="idNumber"></td>
+    </tr>
+    <tr>
+        <td>职业(工种)及等级:</td>
+        <td id="occupation"></td>
+    </tr>
+    <tr>
+        <td>理论知识考试成绩:</td>
+        <td id="theoryScore"></td>
+    </tr>
+    <tr>
+        <td>操作技能考核成绩:</td>
+        <td id="practicalScore"></td>
+    </tr>
+    <tr>
+        <td>评定成绩:</td>
+        <td id="evaluation"></td>
+    </tr>
+    <tr>
+        <td>颁证日期:</td>
+        <td id="issueDate"></td>
+    </tr>
+    <tr>
+        <td>发证单位:</td>
+        <td id="issuingUnit"></td>
+    </tr>
+    <tr>
+        <td>证书流水码所属号段:</td>
+        <td id="serialNumberRange"></td>
+    </tr>
+</table>
 
-</html>    
+<script>
+    // 模拟数据数组
+    const certificateData = [
+        {
+            username: '李基正',
+            photo: '',
+            name: '李基正',
+            gender: '男',
+            birthDate: '1984年04月09日',
+            certificateNumber: '2436003021409036',
+            idNumber: '6201*********5035',
+            occupation: '消防设施操作员四级',
+            theoryScore: '77.5',
+            practicalScore: '75.0',
+            evaluation: '合格',
+            issueDate: '2024-07-01',
+            issuingUnit: '消防职业技能鉴定指导中心',
+            serialNumberRange: '58213967'
+        },
+        {
+            username: '王杰',
+            photo: '',
+            name: '王杰',
+            gender: '男',
+            birthDate: '1964年05月05日',
+            certificateNumber: '203600302740411006',
+            idNumber: '40103196405054238',
+            occupation: '消防设施操作员',
+            theoryScore: '66.0',
+            practicalScore: '71.0',
+            evaluation: '合格',
+            issueDate: '2020-08-05',
+            issuingUnit: '消防职业技能鉴定指导中心',
+            serialNumberRange: 'NQ47678545'
+    }
+    ];
+
+    // 获取URL参数
+    const urlParams = new URLSearchParams(window.location.search);
+    // const targetUsername = urlParams.get('username');
+    const targetUsername = '王杰';//先默认为王杰
+    // 匹配数据
+    const targetData = certificateData.find(item => item.username === targetUsername);
+
+    if (targetData) {
+        // 填充数据
+        document.getElementById('photo').src = `${targetData.username}.jpg`;
+        document.getElementById('name').textContent = targetData.name;
+        document.getElementById('gender').textContent = targetData.gender;
+        document.getElementById('birthDate').textContent = targetData.birthDate;
+        document.getElementById('certificateNumber').textContent = targetData.certificateNumber;
+        document.getElementById('idNumber').textContent = targetData.idNumber;
+        document.getElementById('occupation').textContent = targetData.occupation;
+        document.getElementById('theoryScore').textContent = targetData.theoryScore;
+        document.getElementById('practicalScore').textContent = targetData.practicalScore;
+        document.getElementById('evaluation').textContent = targetData.evaluation;
+        document.getElementById('issueDate').textContent = targetData.issueDate;
+        document.getElementById('issuingUnit').textContent = targetData.issuingUnit;
+        document.getElementById('serialNumberRange').textContent = targetData.serialNumberRange;
+    }
+</script>
+</body>
+</html>
