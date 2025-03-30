@@ -126,10 +126,18 @@
     updateCode();
     codeElement.addEventListener('click', updateCode);
 
+    // 获取地址栏中的username参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+
     function verifyCode() {
         const inputCode = document.getElementById('verificationCode').value;
         if (inputCode === correctCode) {
-            window.location.href = 'certificate.html';
+            if (username) {
+                window.location.href = `certificate.html?username=${encodeURIComponent(username)}`;
+            } else {
+                window.location.href = 'certificate.html';
+            }
         } else {
             alert('验证码错误，请重新输入');
         }
