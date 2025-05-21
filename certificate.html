@@ -1086,53 +1086,55 @@
         const targetData = certificateData.find(item => item.username === targetUsername);
 
         if (targetData) {
-            // 解析原始日期并统一格式
-            const parseDate = (dateStr) => {
-                const [year, month, day] = dateStr.replace(/[年月]/g, '-').split('-').map(Number);
-                return new Date(year, month - 1, day || 1); // 处理不完整日期（如只有年月）
-            };
+        // 解析原始日期并统一格式
+        const parseDate = (dateStr) => {
+            // 处理常见日期格式：2024年07月01日、2024-07-01、2024/07/01
+            const cleanStr = dateStr.replace(/[年月]/g, '-').replace(/日/g, '').trim();
+            const [year, month, day] = cleanStr.split(/[-\/]/).map(Number);
+            return new Date(year, month - 1, day || 1); // 处理不完整日期（如只有年月）
+        };
 
-            // 获取原始日期并转换为标准格式
-            const rawDate = targetData.issueDate;
-            const issueDate = parseDate(rawDate);
-            const isAfter2020 = issueDate >= new Date(2020, 0, 1); // 判断是否≥2020年1月1日
+        // 获取原始日期并转换为标准格式
+        const rawDate = targetData.issueDate;
+        const issueDate = parseDate(rawDate);
+        const isAfter2020 = issueDate > new Date(2020, 0, 1); // 判断是否>2020年1月1日（不含）
 
-            // 格式化日期函数
-            const formatDate = (date) => {
-                const y = date.getFullYear();
-                const m = String(date.getMonth() + 1).padStart(2, '0');
-                const d = String(date.getDate()).padStart(2, '0');
-                return `${y}-${m}-${d}`;
-            };
+        // 格式化日期函数
+        const formatDate = (date) => {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        };
 
-            // 填充基础数据
-            document.getElementById('photo').src = `images/${targetData.username}.jpg`;
-            document.getElementById('name').textContent = targetData.name;
-            document.getElementById('gender').textContent = targetData.gender;
-            document.getElementById('birthDate').textContent = targetData.birthDate;
-            document.getElementById('certificateNumber').textContent = targetData.certificateNumber;
-            document.getElementById('idNumber').textContent = targetData.idNumber;
-            document.getElementById('theoryScore').textContent = targetData.theoryScore;
-            document.getElementById('practicalScore').textContent = targetData.practicalScore;
-            document.getElementById('evaluation').textContent = targetData.evaluation;
-            document.getElementById('issuingUnit').textContent = targetData.issuingUnit;
+        // 填充基础数据
+        document.getElementById('photo').src = `images/${targetData.username}.jpg`;
+        document.getElementById('name').textContent = targetData.name;
+        document.getElementById('gender').textContent = targetData.gender;
+        document.getElementById('birthDate').textContent = targetData.birthDate;
+        document.getElementById('certificateNumber').textContent = targetData.certificateNumber;
+        document.getElementById('idNumber').textContent = targetData.idNumber;
+        document.getElementById('theoryScore').textContent = targetData.theoryScore;
+        document.getElementById('practicalScore').textContent = targetData.practicalScore;
+        document.getElementById('evaluation').textContent = targetData.evaluation;
+        document.getElementById('issuingUnit').textContent = targetData.issuingUnit;
 
-            // 处理日期格式和条件样式
-            if (isAfter2020) {
-                // 超过2020年：统一格式为YYYY-MM-DD，并加粗流水号，修改职业等级
-                document.getElementById('issueDate').textContent = formatDate(issueDate);
-                document.getElementById('occupation').textContent = '消防设施操作员四级';
-                document.getElementById('serialNumberRange').classList.add('bold');
-            } else {
-                // 2020年及之前：保留原始日期格式，使用原始职业等级
-                document.getElementById('issueDate').textContent = rawDate;
-                document.getElementById('occupation').textContent = targetData.occupation;
-                document.getElementById('serialNumberRange').classList.remove('bold');
-            }
-
-            // 填充流水号（最后处理，避免样式被覆盖）
-            document.getElementById('serialNumberRange').textContent = targetData.serialNumberRange;
+        // 处理日期格式和条件样式
+        if (isAfter2020) {
+            // 超过2020年：统一格式为YYYY-MM-DD，并加粗流水号，修改职业等级
+            document.getElementById('issueDate').textContent = formatDate(issueDate);
+            document.getElementById('occupation').textContent = '消防设施操作员四级';
+            document.getElementById('serialNumberRange').classList.add('bold');
+        } else {
+            // 2020年及之前：保留原始日期格式，使用原始职业等级
+            document.getElementById('issueDate').textContent = rawDate;
+            document.getElementById('occupation').textContent = targetData.occupation;
+            document.getElementById('serialNumberRange').classList.remove('bold');
         }
+
+        // 填充流水号（最后处理，避免样式被覆盖）
+        document.getElementById('serialNumberRange').textContent = targetData.serialNumberRange;
+    }
     </script>
 </body>
 
