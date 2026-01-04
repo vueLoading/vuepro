@@ -1,0 +1,14 @@
+# 依赖包
+node_modules/
+# 编译产物
+dist/
+# 敏感配置
+.env
+.env.*
+# 日志/缓存
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# 编辑器配置（可选）
+.idea/
+.vscode/
