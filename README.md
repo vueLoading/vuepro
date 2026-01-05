@@ -7,4 +7,4 @@
 
 ## 访问说明
 项目部署地址：https://vueloading.github.io         （仅为测试用途）
-验证文件地址：https://vueloading.github.io/5f9ee68f1d0f36a42af3378dcb9b2582.txt
+验证文件地址：https://vueloading.github.io/5f9ee68f1d0f36a42af3378dcb9b2582.txt  https://vueloading.github.io/24c093f66fcc45eaa172cb21f8bd3e70.txt
